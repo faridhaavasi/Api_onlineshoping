@@ -47,5 +47,9 @@ class Otp(models.Model):
     code = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"user-{self.phone_number}-random-code{self.code}"
+
+
 
 
