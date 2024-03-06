@@ -40,3 +40,12 @@ class User(AbstractUser):
     objects = CustomUserManager()
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = []
+
+
+class Otp(models.Model):
+    phone_number = models.CharField(max_length=11)
+    code = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+
+
+
