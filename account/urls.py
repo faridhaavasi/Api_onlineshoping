@@ -2,4 +2,5 @@ from django.urls import path
 from. import views
 urlpatterns =[
     path('register', views.RegisterApiView.as_view(), name='register_user'),
+    path('verify', views.VerifyCodeApi.as_view(), name='verify code'),
 ]
