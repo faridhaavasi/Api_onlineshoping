@@ -4,7 +4,7 @@ from .serializer import RegisterSerializer, VerifyCodeSerializer
 from rest_framework import status
 from random import randint
 from .models import User, Otp
-
+from .utils import sms_otp_code
 
 class RegisterApiView(APIView):
     serializer_class = RegisterSerializer
@@ -23,6 +23,7 @@ class RegisterApiView(APIView):
                 'password': validated_data['password'],
                 'random_code': random_code
             }
+            #sms_otp_code(phone_number=validated_data['phone_number'], code=random_code)
             session_info_register = request.session['register_info']
             Otp.objects.create(phone_number=validated_data['phone_number'], code=random_code)
             return Response({'data': session_info_register}, status=status.HTTP_200_OK)
