@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .serializers import CategorySerializer, ProductSerializer
 from .models import Category, Product
 
-class CategoryListView(APIView):
+class CategoryListViewAPI(APIView):
     serializer_class = CategorySerializer
     def get(self, request):
         instance = Category.objects.all()
