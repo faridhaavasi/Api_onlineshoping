@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'storages',
+    'django_celery_beat',
     # core app
     'account.apps.AccountConfig',
     'product.apps.ProductConfig',
