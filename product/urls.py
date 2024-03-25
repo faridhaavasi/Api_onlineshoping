@@ -12,4 +12,4 @@ urlpatterns = [
 
 router = DefaultRouter()
 router.register(r'products', ProductViewsetApi, basename='product')
-urlpatterns = router.urls
+urlpatterns += router.urls

@@ -10,8 +10,8 @@ class CategoryListViewAPI(APIView):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
-        instance = Category.objects.all()
-        serializer = CategorySerializer(instance=instance)
+        queryset = Category.objects.all()
+        serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data)
 
 
