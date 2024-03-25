@@ -8,7 +8,7 @@ from .models import Category, Product
 
 class CategoryListViewAPI(APIView):
     serializer_class = CategorySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         queryset = Category.objects.all()
         serializer = CategorySerializer(queryset, many=True)
@@ -17,7 +17,7 @@ class CategoryListViewAPI(APIView):
 
 
 class ProductViewsetApi(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
     def list(self, request):
         queryset = Product.objects.product_Avalible_True()
         serializer = ProductSerializer(queryset, many=True)
