@@ -4,15 +4,17 @@ from .models import Category, Product
 
 
 class Sub_categorySerializer(serializers.Serializer):
+    name = serializers.CharField(read_only=True)
     slug = serializers.CharField(read_only=True)
 
+
 class CategorySerializer(serializers.ModelSerializer):
-    sub_category = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    #sub_category = serializers.SlugRelatedField(read_only=True, slug_field='name')
     sub_category = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ('name','sub_category', 'slug')
+        fields = "__all__"
 
     def get_sub_category(self, obj):
         if obj.is_sub:
