@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
-from .serializers import CategorySerializer, ProductSerializer, ProductSortedCategorySerializer
+from .serializers import CategorySerializer, ProductSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from .models import Category, Product
@@ -32,7 +32,7 @@ class ProductViewsetApi(viewsets.ViewSet):
 
 
 class ProductListSortedCategoryVireApi(APIView):
-    serializer_class = ProductSortedCategorySerializer
+    serializer_class = ProductSerializer
     def get(self, request, slug):
         products = Product.objects.product_Avalible_True()
         category = Category.objects.get(slug=slug)

@@ -32,8 +32,4 @@ class ProductSerializer(serializers.ModelSerializer):
             return serializer.data
 
 
-class ProductSortedCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = "__all__"
 
