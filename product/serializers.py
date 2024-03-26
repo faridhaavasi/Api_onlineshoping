@@ -31,3 +31,9 @@ class ProductSerializer(serializers.ModelSerializer):
             serializer = CategorySerializer(instance=obj.category.all(), many=True)
             return serializer.data
 
+
+class ProductSortedCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"
+

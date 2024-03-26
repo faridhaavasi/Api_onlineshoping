@@ -6,6 +6,8 @@ from rest_framework.routers import DefaultRouter
 app_name = 'product'
 urlpatterns = [
     path('category_list', views.CategoryListViewAPI.as_view(), name='category_list'),
+    path('productssortedcategory/<slug:slug>', views.ProductListSortedCategoryVireApi.as_view(), name='productsortedbycategory'),
+
 ]
 
 
