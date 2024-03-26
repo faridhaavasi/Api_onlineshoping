@@ -1,17 +1,23 @@
 from rest_framework import serializers
-from unicodedata import name
 
 from .models import Category, Product
-from rest_framework.response import Response
+
+
+class Sub_categorySerializer(serializers.Serializer):
+    slug = serializers.CharField(read_only=True)
 
 class CategorySerializer(serializers.ModelSerializer):
     sub_category = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    sub_category = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ('name','sub_category')
+        fields = ('name','sub_category', 'slug')
 
-    #
+    def get_sub_category(self, obj):
+        if obj.is_sub:
+            serializer = Sub_categorySerializer(instance=obj.sub_category)
+            return serializer.data
 
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
