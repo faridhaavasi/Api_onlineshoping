@@ -24,9 +24,10 @@ class ProductViewsetApi(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-    def retrieve(self, request, slug):
+    def retrieve(self, request, pk):
         queryset = Product.objects.product_Avalible_True()
-        product = get_object_or_404(queryset, slug=slug)
+        product = get_object_or_404(queryset, pk=pk)
+
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 
