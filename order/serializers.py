@@ -7,3 +7,6 @@ class CartSerializer(serializers.Serializer):
     unit_price = serializers.IntegerField(read_only=True)
     total_price = serializers.IntegerField(read_only=True)
 
+class CartAddSerializer(serializers.Serializer):
+    id_of_product = serializers.IntegerField()
+    quantity = serializers.IntegerField()
