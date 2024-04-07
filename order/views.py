@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import CartAddSerializer
+from .serializers import CartAddSerializer, CartRemoveSerializer
 from product.models import Product
 from .cart import Cart
 
@@ -15,7 +15,7 @@ class CartViewApi(APIView):
 class CartAddViewApi(APIView):
     serializer_class = CartAddSerializer
 
-    def post(self, request, ):
+    def post(self, request):
         cart = Cart(request)
         ser = self.serializer_class(data=request.POST)
         if ser.is_valid():
@@ -23,3 +23,10 @@ class CartAddViewApi(APIView):
             cart.add(product, quantity=ser.validated_data['quantity'])
             return Response({'massage': 'added'})
         return Response(ser.errors)
+class CartRemoveViewApi(APIView):
+    serializer_class = CartRemoveSerializer
+    def get(self, request, product_id):
+        cart = Cart(request)
+        product = Product.objects.get(id=product_id)
+        cart.remove(product=product)
+        return Response({'massage': 'deleted'})
