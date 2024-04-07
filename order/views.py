@@ -10,9 +10,7 @@ class CartViewApi(APIView):
 
     def get(self, request):
         cart = Cart(request)
-
-        ser = self.serializer_class(cart)
-        return Response(ser.data)
+        return Response(request.session.get('cart'))
 class CartAddViewApi(APIView):
     serializer_class = CartAddSerializer
     def post(self, request,):
