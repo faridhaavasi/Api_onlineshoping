@@ -1,8 +1,10 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .serializers import CartAddSerializer, CartRemoveAddOrderSerializer
+from .serializers import CartAddSerializer, CartRemoveAddOrderSerializer, OrederItememSerializer
 from product.models import Product
 from .models import Order, OrderItem
 from .cart import Cart
@@ -52,6 +54,18 @@ class AddOrderViewApi(APIView):
                     return Response({'massage': 'added order'},status=status.HTTP_201_CREATED)
                 return Response({'error': 'have a problem in order'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class OrderItemViewApi(viewsets.ViewSet):
+    def list(self, request):
+        queryset = OrderItem.objects.all()
+        serializer = OrederItememSerializer(queryset, many=True)
+        return Response(serializer.data)
+    def retrieve(self, request, pk=None):
+        queryset = OrderItem.objects.all()
+        order_item = get_object_or_404(queryset, pk=pk)
+        serializer = OrederItememSerializer(order_item)
+        return Response(serializer.data)
+
 
 
 
