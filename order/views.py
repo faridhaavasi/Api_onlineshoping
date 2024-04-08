@@ -47,13 +47,14 @@ class AddOrderViewApi(APIView):
         if ser.is_valid():
 
             for item in cart:
-                if item['product_id'] == ser.validated_data['id_of_product']:
-                    product = Product.objects.get(id=item['product_id'])
-                    OrderItem.objects.create(order=order, product=product, price=item['price'], quantity=item['quantity'])
-                    cart.clear()
-                    return Response({'massage': 'added order'})
-                return Response({'error': 'have a problem in order'})
-            return Response(ser.errors)
+
+                print(f'id:{item['product']}')
+                product = Product.objects.get(id=ser.validated_data['id_of_product'])
+                OrderItem.objects.create(order=order, product=product, price=item['price'], quantity=item['quantity'])
+                cart.clear()
+                return Response({'massage': 'added order'})
+            return Response({'error': 'have a problem in order'})
+        return Response(ser.errors)
 
 
 
