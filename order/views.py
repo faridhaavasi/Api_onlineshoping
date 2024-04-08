@@ -46,10 +46,11 @@ class AddOrderViewApi(APIView):
         if ser.is_valid():
             for item in cart:
                 product = Product.objects.get(id=ser.validated_data['id_of_product'])
-                OrderItem.objects.create(order=order, product=product, price=item['price'], quantity=item['quantity'])
-                cart.clear()
-                return Response({'massage': 'added order'},status=status.HTTP_201_CREATED)
-            return Response({'error': 'have a problem in order'}, status=status.HTTP_400_BAD_REQUEST)
+                if product:
+                    OrderItem.objects.create(order=order, product=product, price=item['price'], quantity=item['quantity'])
+                    cart.clear()
+                    return Response({'massage': 'added order'},status=status.HTTP_201_CREATED)
+                return Response({'error': 'have a problem in order'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
