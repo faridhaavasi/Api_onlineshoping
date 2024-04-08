@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'storages',
     'django_celery_beat',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',  # required for Django collectstatic discover
+
     # core app
     'account.apps.AccountConfig',
     'product.apps.ProductConfig',
@@ -124,6 +127,7 @@ STATIC_URL = 'static/'
 
 # rest
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
@@ -147,4 +151,18 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
 
 
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'oneline_shoping',
+    'DESCRIPTION': 'API onelibe shoping',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+
+
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    # OTHER SETTINGS
+}
 

@@ -1,0 +1,442 @@
+openapi: 3.0.3
+info:
+  title: oneline_shoping
+  version: 1.0.0
+  description: API onelibe shoping
+paths:
+  /accounts/api/register:
+    post:
+      operationId: accounts_api_register_create
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /accounts/api/token/:
+    post:
+      operationId: accounts_api_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /accounts/api/token/refresh/:
+    post:
+      operationId: accounts_api_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /accounts/api/verify:
+    post:
+      operationId: accounts_api_verify_create
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCode'
+          description: ''
+  /order/addorder:
+    post:
+      operationId: order_addorder_create
+      tags:
+      - order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartRemoveAddOrder'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CartRemoveAddOrder'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CartRemoveAddOrder'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartRemoveAddOrder'
+          description: ''
+  /order/cart:
+    get:
+      operationId: order_cart_retrieve
+      tags:
+      - order
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /order/cartadd:
+    post:
+      operationId: order_cartadd_create
+      tags:
+      - order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartAdd'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CartAdd'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CartAdd'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartAdd'
+          description: ''
+  /order/cartremove/{product_id}:
+    get:
+      operationId: order_cartremove_retrieve
+      parameters:
+      - in: path
+        name: product_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - order
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartRemoveAddOrder'
+          description: ''
+  /order/order_items/:
+    get:
+      operationId: order_order_items_retrieve
+      tags:
+      - order
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /order/order_items/{id}/:
+    get:
+      operationId: order_order_items_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - order
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /product/category_list:
+    get:
+      operationId: product_category_list_retrieve
+      tags:
+      - product
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /product/products/:
+    get:
+      operationId: product_products_retrieve
+      tags:
+      - product
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /product/products/{id}/:
+    get:
+      operationId: product_products_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - product
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /product/productssortedcategory/{slug}:
+    get:
+      operationId: product_productssortedcategory_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - product
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+components:
+  schemas:
+    CartAdd:
+      type: object
+      properties:
+        id_of_product:
+          type: integer
+          writeOnly: true
+        quantity:
+          type: integer
+          writeOnly: true
+      required:
+      - id_of_product
+      - quantity
+    CartRemoveAddOrder:
+      type: object
+      properties:
+        id_of_product:
+          type: integer
+          writeOnly: true
+      required:
+      - id_of_product
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        sub_category:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 40
+        is_sub:
+          type: boolean
+        slug:
+          type: string
+          nullable: true
+          maxLength: 40
+          pattern: ^[-a-zA-Z0-9_]+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - sub_category
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        slug:
+          type: string
+          nullable: true
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        category:
+          type: string
+          readOnly: true
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+        available:
+          type: boolean
+        price:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+      required:
+      - category
+      - description
+      - id
+      - image
+      - name
+      - price
+    Register:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          maxLength: 11
+        password:
+          type: string
+          maxLength: 128
+      required:
+      - password
+      - phone_number
+    TokenObtainPair:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - phone_number
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    VerifyCode:
+      type: object
+      properties:
+        code:
+          type: integer
+          writeOnly: true
+      required:
+      - code
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
