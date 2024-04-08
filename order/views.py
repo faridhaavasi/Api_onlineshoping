@@ -41,20 +41,16 @@ class AddOrderViewApi(APIView):
     permission_classes = [IsAuthenticated,]
     def post(self, request):
         cart = Cart(request)
-        print(request.user)
         order = Order.objects.create(user=request.user)
         ser = self.serializer_class(data=request.data)
         if ser.is_valid():
-
             for item in cart:
-
-                print(f'id:{item['product']}')
                 product = Product.objects.get(id=ser.validated_data['id_of_product'])
                 OrderItem.objects.create(order=order, product=product, price=item['price'], quantity=item['quantity'])
                 cart.clear()
-                return Response({'massage': 'added order'})
-            return Response({'error': 'have a problem in order'})
-        return Response(ser.errors)
+                return Response({'massage': 'added order'},status=status.HTTP_201_CREATED)
+            return Response({'error': 'have a problem in order'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
