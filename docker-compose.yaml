@@ -1,44 +1,45 @@
-version: '3'
-
 services:
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: test
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
-    ports:
-      - "5432:5432"  
-    
-    networks:
-      - main  
-    volumes:
-      - postgres:/var/lib/postgresql/data
+  postgres:
+    container_name: postgres
+    image: postgres
     restart: always
-  
-  
-    
-  redis:
-    image: redis:latest
-
-  web:
-    build: .
-    command: python manage.py runserver 8000
-  
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
-      - "8000:8000"
-    
+      - "5432:5432"
+
     networks:
       - main
+
     volumes:
-      - /app/  
-    depends_on:
-      - db
-      - redis
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:latest
+    
 
 
-volumes:
-  postgres:
+  
+
   app:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    container_name: app
+    volumes:
+      - .:/code/
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8000:8000"
+    networks:
+      - main
+    restart: always
+
 networks:
   main:
+
+volumes:
+  postgres_data:
+#
