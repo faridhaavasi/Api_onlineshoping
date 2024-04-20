@@ -13,5 +13,5 @@ COPY . /app/
 
 EXPOSE 8000
 
-# Run the Django development server
-CMD ["python", "manage.py", "runserver", "8000"]
+# Run the Django deployelopment server
+CMD ["gunicorn", "core.wsgi", ":8000"]
