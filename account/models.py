@@ -41,6 +41,9 @@ class User(AbstractUser):
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = []
 
+    def __str__(self):
+        return self.phone_number
+
 
 class Otp(models.Model):
     phone_number = models.CharField(max_length=11)
