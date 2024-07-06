@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from order.views import AddOrderViewApi, CartViewApi, CartRemoveViewApi, CartAddViewApi
-
+from order.models import Order
 
 
 class TestOrderUrl(SimpleTestCase):
