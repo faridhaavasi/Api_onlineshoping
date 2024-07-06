@@ -3,7 +3,7 @@ from django.urls import reverse, resolve
 from account.views import RegisterApiView, VerifyCodeApi
 
 
-class Testurls(SimpleTestCase):
+class TestAccountUrls(SimpleTestCase):
     def setUp(self):
         self.register_url = reverse('accounts:register_user')
         self.veryfi_url = reverse('accounts:verify code')
