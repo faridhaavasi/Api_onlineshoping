@@ -20,5 +20,6 @@ class TestAccountViews(TestCase):
         )
         req = self.client.post(reverse('accounts:register_user'), data=ser.data)
         self.assertEqual(req.status_code, 200)
+        self.assertEqual(User.objects.count(),1)
 
 
