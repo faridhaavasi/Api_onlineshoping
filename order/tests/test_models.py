@@ -9,3 +9,6 @@ class TestOrderModels(TestCase):
         self.order = Order.objects.create(user=self.user_id, paid=True)
     def test_order_model(self):
         self.assertEqual(str(self.order), f'{self.order.user}- True')
+
+    def test_order_item_model(self):
+        pass
