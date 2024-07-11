@@ -42,4 +42,13 @@ class TestAccountViews(TestCase):
      it is not tested at all if the data is not correct,
      because the validation prevents the entry of wrong data.
     '''
+    def test_invalid_veryfi_code_Api(self):
+        ser = VerifyCodeSerializer(
+            data={
+                'cpde': '1323'
+            }
+        )
+        req = self.client.post(reverse('accounts:verify code'))
+        self.assertNotEqual(req.status_code, 200)
+
 
