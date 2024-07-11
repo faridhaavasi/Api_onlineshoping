@@ -45,7 +45,7 @@ class TestAccountViews(TestCase):
     def test_invalid_veryfi_code_Api(self):
         ser = VerifyCodeSerializer(
             data={
-                'cpde': '1323'
+                'code': '1323'
             }
         )
         req = self.client.post(reverse('accounts:verify code'))
