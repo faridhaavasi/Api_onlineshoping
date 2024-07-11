@@ -1,6 +1,7 @@
 from django.test import TestCase
 from order.models import Order, OrderItem, Coupon
 from django.contrib.auth import get_user_model
+from product.models import Product
 User = get_user_model()
 class TestOrderModels(TestCase):
     def setUp(self):
@@ -10,5 +11,7 @@ class TestOrderModels(TestCase):
     def test_order_model(self):
         self.assertEqual(str(self.order), f'{self.order.user}- True')
 
-    def test_order_item_model(self):
-        pass
+
+
+    # It is not reasonable to write a test for all models
+
